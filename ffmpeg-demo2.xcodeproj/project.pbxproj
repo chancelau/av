@@ -11,6 +11,7 @@
 		00CFA9F82B2059B40057E3B4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CFA9F72B2059B40057E3B4 /* ViewController.swift */; };
 		00CFA9FA2B2059B50057E3B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00CFA9F92B2059B50057E3B4 /* Assets.xcassets */; };
 		00CFA9FD2B2059B60057E3B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00CFA9FB2B2059B60057E3B4 /* Main.storyboard */; };
+		00CFAA0B2B2065810057E3B4 /* ffmpeg_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 00CFAA0A2B2065810057E3B4 /* ffmpeg_util.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,9 @@
 		00CFA9F92B2059B50057E3B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00CFA9FC2B2059B60057E3B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		00CFA9FE2B2059B60057E3B4 /* ffmpeg_demo2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ffmpeg_demo2.entitlements; sourceTree = "<group>"; };
+		00CFAA082B2065800057E3B4 /* ffmpeg-demo2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ffmpeg-demo2-Bridging-Header.h"; sourceTree = "<group>"; };
+		00CFAA092B2065810057E3B4 /* ffmpeg_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ffmpeg_util.h; sourceTree = "<group>"; };
+		00CFAA0A2B2065810057E3B4 /* ffmpeg_util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ffmpeg_util.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,9 @@
 				00CFA9F92B2059B50057E3B4 /* Assets.xcassets */,
 				00CFA9FB2B2059B60057E3B4 /* Main.storyboard */,
 				00CFA9FE2B2059B60057E3B4 /* ffmpeg_demo2.entitlements */,
+				00CFAA092B2065810057E3B4 /* ffmpeg_util.h */,
+				00CFAA0A2B2065810057E3B4 /* ffmpeg_util.c */,
+				00CFAA082B2065800057E3B4 /* ffmpeg-demo2-Bridging-Header.h */,
 			);
 			path = "ffmpeg-demo2";
 			sourceTree = "<group>";
@@ -93,6 +100,7 @@
 				TargetAttributes = {
 					00CFA9F12B2059B40057E3B4 = {
 						CreatedOnToolsVersion = 15.0.1;
+						LastSwiftMigration = 1500;
 					};
 				};
 			};
@@ -132,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00CFA9F82B2059B40057E3B4 /* ViewController.swift in Sources */,
+				00CFAA0B2B2065810057E3B4 /* ffmpeg_util.c in Sources */,
 				00CFA9F62B2059B40057E3B4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,6 +282,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "ffmpeg-demo2/ffmpeg_demo2.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -291,6 +301,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "lyc.ffmpeg-demo2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ffmpeg-demo2/ffmpeg-demo2-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -300,6 +312,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "ffmpeg-demo2/ffmpeg_demo2.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -318,6 +331,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "lyc.ffmpeg-demo2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ffmpeg-demo2/ffmpeg-demo2-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

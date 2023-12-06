@@ -32,6 +32,8 @@ class ViewController: NSViewController {
     @objc
     func sayHi() -> Void {
         print("Hello FFmpeg")
+        hello_ffmpeg()
+        
     }
 
 }
