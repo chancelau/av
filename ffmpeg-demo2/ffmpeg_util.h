@@ -9,6 +9,7 @@
 #define ffmpeg_util_h
 
 #include <stdio.h>
+#include "libavutil/avutil.h"
 void hello_ffmpeg(void);
 
 #endif /* ffmpeg_util_h */
