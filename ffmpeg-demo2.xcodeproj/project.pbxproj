@@ -49,6 +49,7 @@
 		00E28AF92B206A67003589C8 /* libavutil.58.2.100.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libavutil.58.2.100.dylib; path = "ffmpeg-demo2/libs/libavutil.58.2.100.dylib"; sourceTree = "<group>"; };
 		00E28AFA2B206A67003589C8 /* libavdevice.60.1.100.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libavdevice.60.1.100.dylib; path = "ffmpeg-demo2/libs/libavdevice.60.1.100.dylib"; sourceTree = "<group>"; };
 		00E28AFB2B206A67003589C8 /* libavformat.60.3.100.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libavformat.60.3.100.dylib; path = "ffmpeg-demo2/libs/libavformat.60.3.100.dylib"; sourceTree = "<group>"; };
+		00E28B0E2B235EF1003589C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +86,7 @@
 		00CFA9F42B2059B40057E3B4 /* ffmpeg-demo2 */ = {
 			isa = PBXGroup;
 			children = (
+				00E28B0E2B235EF1003589C8 /* Info.plist */,
 				00CFA9F52B2059B40057E3B4 /* AppDelegate.swift */,
 				00CFA9F72B2059B40057E3B4 /* ViewController.swift */,
 				00CFA9F92B2059B50057E3B4 /* Assets.xcassets */,
@@ -331,6 +333,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ffmpeg-demo2/Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -368,6 +371,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ffmpeg-demo2/Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

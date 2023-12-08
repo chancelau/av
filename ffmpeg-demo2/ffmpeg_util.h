@@ -10,6 +10,9 @@
 
 #include <stdio.h>
 #include "libavutil/avutil.h"
+#include "libavdevice/avdevice.h"//负责设备
+#include "libavformat/avformat.h" // 负责格式
+
 void hello_ffmpeg(void);
 
 #endif /* ffmpeg_util_h */
