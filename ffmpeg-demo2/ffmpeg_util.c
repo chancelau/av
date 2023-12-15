@@ -6,41 +6,86 @@
 //
 
 #include "ffmpeg_util.h"
-void hello_ffmpeg(void){
-    printf("Hello this form ffmpeg util\n");
+
+
+static int rec_status=0;
+
+
+void set_status(int status){
+    rec_status = status;
+}
+
+void rec_audio(void){
+    //打开音频设备
+    //1、注册设备
+    avdevice_register_all();
     
-    AVFormatContext *fmt_ctx  = NULL;
+    
+    //2、设置采集方式（avfoundation/dshow/alsa）
+     AVInputFormat *iformat =
+        av_find_input_format("avfoundation");
+    
+    
+    
+    //3、打开音频设备
+    
+    AVFormatContext *fmt_ctx;//上下文
+    char *deviceName=":0";
     
     AVDictionary *options = NULL;
     
-    int ret = 0;
+    int ret=0;
     char errors[1024];
     
-    //[[video device]:[audio device]]
-    char *devicename = ":0";
-    
-    
-    av_log_set_level(AV_LOG_DEBUG);
-    av_log(NULL, AV_LOG_DEBUG, "ffmpeg 启动成功！日志成功了！！");
-    
-    //register audio device
-    avdevice_register_all();
-    
-    //get format
-    AVInputFormat *iformat = av_find_input_format("avfoundation");
-    
-    
-    ret = avformat_open_input(&fmt_ctx,
-                        devicename,
+    if((ret=avformat_open_input(                        &fmt_ctx,
+                        deviceName,
                         iformat,
-                        &options);
-    
-    if(ret<0){
+                                &options))<0){
         av_strerror(ret, errors, 1024);
-        printf(stderr,"Failed to open audio device,[%d]%s\n",ret,errors); 
-    }else{
-        printf(stdout,"设备打开成功！");
+        printf(stderr,"Faild to open device,[%d]：%s\n",ret,errors);
+            
+        return;
+     }
+    
+    //读取数据
+    printf("设备打开成功，即将读取数据\n");
+    
+    AVPacket pkt;
+    av_init_packet(&pkt);
+    int count=0;
+    sleep(1);
+    while (rec_status) {
+        ret=av_read_frame(fmt_ctx, &pkt);
+        if(ret==-35) {
+               usleep(1000);
+               continue;
+        }
+        printf("pkt size is %d \n",pkt.size);
+        
     }
+    
+    printf("record over ret=%d",ret);
+  
     
     return;
 }
+
+
+
+
+void get_current_time_str(char *currentTimeString, int bufferSize) {
+    time_t currentTime;
+    struct tm *localTime;
+
+    // 获取当前时间的秒数
+    time(&currentTime);
+
+    // 将时间转换为本地时间结构体
+    localTime = localtime(&currentTime);
+
+    // 格式化当前时间为字符串
+    strftime(currentTimeString, bufferSize, "%Y%m%d%H%M%S", localTime);
+    
+}
+
+

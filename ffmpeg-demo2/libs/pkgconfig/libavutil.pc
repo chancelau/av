@@ -1,14 +1,14 @@
-prefix=/opt/homebrew/Cellar/ffmpeg/6.0_1
+prefix=/opt/homebrew/Cellar/ffmpeg@5/5.1.4_1
 exec_prefix=${prefix}
-libdir=/opt/homebrew/Cellar/ffmpeg/6.0_1/lib
-includedir=/opt/homebrew/Cellar/ffmpeg/6.0_1/include
+libdir=/opt/homebrew/Cellar/ffmpeg@5/5.1.4_1/lib
+includedir=/opt/homebrew/Cellar/ffmpeg@5/5.1.4_1/include
 
 Name: libavutil
 Description: FFmpeg utility library
-Version: 58.2.100
+Version: 57.28.100
 Requires: 
 Requires.private: 
 Conflicts:
 Libs: -L${libdir}  -lavutil 
-Libs.private: -pthread -lm -framework VideoToolbox -L/opt/homebrew/Cellar/libx11/1.8.6/lib -lX11 -framework CoreFoundation -framework CoreMedia -framework CoreVideo -framework CoreServices
+Libs.private: -pthread -lm -framework VideoToolbox -L/opt/homebrew/Cellar/libx11/1.8.7/lib -lX11 -framework CoreFoundation -framework CoreMedia -framework CoreVideo -framework CoreServices
 Cflags: -I${includedir}
