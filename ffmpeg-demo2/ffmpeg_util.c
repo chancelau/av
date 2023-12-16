@@ -3,6 +3,8 @@
 //  ffmpeg-demo2
 //
 //  Created by liuyongchang on 2023/12/6.
+
+//  代码风格，所有变量定义在函数的前面
 //
 
 #include "ffmpeg_util.h"
@@ -54,17 +56,45 @@ void rec_audio(void){
     av_init_packet(&pkt);
     int count=0;
     sleep(1);
+    
+    //文件定义
+    char savePath[100];
+    char currentTimeStr[50];
+    get_current_time_str(currentTimeStr, 50);
+    snprintf(savePath, sizeof(savePath), "/Users/lyc/Downloads/%s.pcm", currentTimeStr);
+    
+    FILE* saveFile = fopen(savePath, "wb+");
+    
     while (rec_status) {
         ret=av_read_frame(fmt_ctx, &pkt);
-        if(ret==-35) {
-               usleep(1000);
+        if(ret==-35) {
+            usleep(20);//这个睡眠时间怎么定义呢？
+            //sleep(1);
                continue;
         }
+        
+        if(ret<0){
+            printf("read frame error ret=%d",ret);
+            break;
+        }
+        
         printf("pkt size is %d \n",pkt.size);
         
+        fwrite(pkt.data, pkt.size, 1, saveFile);
+        
+        av_packet_unref(&pkt);
     }
     
+    
+    //释放资源，防止内存泄露
+    avformat_close_input(&fmt_ctx);//释放上下文
+    fflush(saveFile);
+    fclose(saveFile);
+    
     printf("record over ret=%d",ret);
+    
+    
+    
   
     
     return;
