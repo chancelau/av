@@ -74,10 +74,10 @@ void rec_audio(void){
                       NULL,//上下文，入参
                        AV_CH_LAYOUT_STEREO,//输出 channel布局，立体声
                        AV_SAMPLE_FMT_S16,//输出采用格式
-                       48000,//采样率
+                       44100,//采样率
                        AV_CH_LAYOUT_STEREO,//输入 channle 布局
                        AV_SAMPLE_FMT_FLT,//输入的采样格式
-                       48000,//输入采样率
+                       44100,//输入采样率
                        0, NULL);
 
 //    int ret2 = swr_alloc_set_opts2(&swr_ctx,         // we're allocating a new context
@@ -101,14 +101,14 @@ void rec_audio(void){
     }
     
 //
-    uint8_t **srcdata;
+    uint8_t **src_data;
     int src_linesize=0;
     
     uint8_t **dst_data;
     int dst_linesize=0;
     
     //创建输入缓冲区
-    av_samples_alloc_array_and_samples(&srcdata,//输出缓冲区地址
+    av_samples_alloc_array_and_samples(&src_data,//输出缓冲区地址
                                         &src_linesize,//缓冲区大小
                                         1,//通道个数
                                         512,//采样数,单个通道采样数据=采集数据/4/2
@@ -123,47 +123,12 @@ void rec_audio(void){
                                        AV_SAMPLE_FMT_S16,//采样格式
                                        0);
     
-    //read data from device
-//    while(rec_status) {
-//        
-//        ret = av_read_frame(fmt_ctx, &pkt);
-//        if(ret==-35) {
-//                   usleep(25);//这个睡眠时间怎么定义呢？
-//                   //sleep(1);
-//                      continue;
-//               }
-//       
-//               if(ret<0){
-//                   printf("read frame error ret=%d",ret);
-//                   break;
-//               }
-//        
-//        av_log(NULL, AV_LOG_INFO,
-//               "packet size is %d(%p)\n",
-//               pkt.size, pkt.data);
-//        
-//        //进行内存拷贝，按字节拷贝的
-//        memcpy((void*)srcdata[0], (void*)pkt.data, pkt.size);
-//        
-//        //重采样
-//        swr_convert(swr_ctx,                    //重采样的上下文
-//                    dst_data,                   //输出结果缓冲区
-//                    512,                        //每个通道的采样数
-//                    (const uint8_t **)srcdata, //输入缓冲区
-//                    512);                       //输入单个通道的采样数
-//        
-//        //write file
-//        //fwrite(pkt.data, 1, pkt.size, outfile);
-//        fwrite(dst_data[0], 1, dts_linesize, saveFile);
-//        fflush(saveFile);
-//        av_packet_unref(&pkt); //release pkt
-//    }
-//    
+      
     while (rec_status) {
         ret=av_read_frame(fmt_ctx, &pkt);
         if(ret==-35) {
-            usleep(25);//这个睡眠时间怎么定义呢？
-            //sleep(1);
+            usleep(20);//这个睡眠时间怎么定义呢？
+    
                continue;
         }
         
@@ -172,22 +137,29 @@ void rec_audio(void){
             break;
         }
         
-        printf("pkt size is %d（%p） \n",pkt.size,pkt.data);
+        av_log(NULL, AV_LOG_INFO,
+               "ret=%d,packet size is %d(%p)\n",
+              ret, pkt.size, pkt.data);
+        
         
 //        //内存拷贝，按照字节拷贝，将pkt.data 拷贝到srcdata中
-        memcpy((void*)srcdata[0], (void*)pkt.data, pkt.size);
+        memcpy((void*)src_data[0], (void*)pkt.data, pkt.size);
 //
 //        //重采样
 //        //pkt data 中的数据不满足 out,in 中双指针的格式
         
-        swr_convert(swr_ctx, dst_data, 512, (const uint8_t **)srcdata, 512);
+        swr_convert(swr_ctx,
+                    dst_data,
+                    512,
+                    (const uint8_t **)src_data,
+                    512);
         
         printf("pkt size is %d（%p） \n",pkt.size,pkt.data);
 //        fwrite(pkt.data, pkt.size, 1, saveFile);//PCM数据保存
         //if(sizeof(dst_data)>0)
         fwrite(dst_data[0],1,dst_linesize, saveFile);
-        //fflush(saveFile);
-        printf("dst_data size = %lu\n",sizeof(*dst_data[0]));
+        fflush(saveFile);
+        
         av_packet_unref(&pkt);
     
     }
@@ -195,18 +167,18 @@ void rec_audio(void){
     printf("record over ret=%d \n",ret);
     //释放资源，防止内存泄露
     avformat_close_input(&fmt_ctx);
-    fflush(saveFile);
+ 
     fclose(saveFile);
     
     
     
     
     
-    if(srcdata){
-        av_freep(&srcdata[0]);
+    if(src_data){
+        av_freep(&src_data[0]);
     }
     
-    av_freep(&srcdata);
+    av_freep(src_data);
    
     
     
@@ -214,10 +186,11 @@ void rec_audio(void){
         av_freep(&dst_data[0]);
     }
     
-    av_freep(&dst_data);
-   
-    avformat_close_input(&fmt_ctx);//释放上下文
+    av_freep(dst_data);
+    
     swr_free(&swr_ctx);
+    avformat_close_input(&fmt_ctx);//释放上下文
+
    
     
  
