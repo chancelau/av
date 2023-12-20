@@ -16,6 +16,7 @@
 #include "unistd.h"//睡眠
 #include "time.h"
 #include "string.h"
+#include "libswresample/swresample.h"
 
 void rec_audio(void);
 void set_status(int status);
